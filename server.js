@@ -1,6 +1,10 @@
 const express = require('express')
+const cors = require('cors')
+
 
 const app = express()
+app.use(cors())
+app.use(express.text())
 
 app.use(express.json())
 
@@ -17,16 +21,22 @@ app.get('/getData',(req,res)=>{
     res.send(data)
 })
 
-app.post('/postCall',(req,res)=>{
-    console.log(req.body,"res")
-    if(req.body.email == "abc@mail.com" && req.body.password == "12345"){
-        res.send(req.body)
+app.post('/potApi',(req,res)=>{
+    console.log(req.body,"demoqwqwqw")
+    const reqData = JSON.parse(req.body)
+    console.log(reqData,"parsed")
+
+    if(reqData.name !== ""){
+        res.json({
+            data:req.body,
+            msg:"Response from backend"
+        })
     }else{
         res.status(401).send("error")
     }
+
 })
 
-
-app.listen(3000,()=>{
-    console.log("Running..")
+app.listen(1000,()=>{
+    console.log("Running......")
 })
